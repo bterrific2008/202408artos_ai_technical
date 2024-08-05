@@ -1,0 +1,18 @@
+# ignore direnv
+.env
+.envrc
+.direnv
+
+# ignore data files
+data/
+
+# ignore pyenv config files
+.python-version
+
+# ignore node config files
+.nvmrc
+node_modules/*
+
+# data_exploration data
+data_exploration/icf/
+data_exploration/prot/
