@@ -31,15 +31,22 @@ with open("output.json", "w", encoding="utf-8") as f:
 
 hits = response["hits"]
 
+titles = []
+
 for hit in tqdm(hits):
     nctid: str = hit["id"]
-    largeDocs: list[dict] = hit["study"]["documentSection"]["largeDocumentModule"]["largeDocs"]
+    largeDocs: list[dict] = hit["study"]["documentSection"]["largeDocumentModule"][
+        "largeDocs"
+    ]
 
     Path("icf").mkdir(parents=True, exist_ok=True)
     Path("prot").mkdir(parents=True, exist_ok=True)
 
+    titles.append(
+        f'{nctid},{hit["study"]["protocolSection"]["identificationModule"]["briefTitle"]}\n'
+    )
 
-    for doc in largeDocs:
+    """for doc in largeDocs:
         filename = doc["filename"]
         url = f"https://cdn.clinicaltrials.gov/large-docs/{nctid[-2:]}/{nctid}/{filename}"
         if "ICF" in filename:
@@ -53,4 +60,8 @@ for hit in tqdm(hits):
                 r = requests.get(url)
                 f.write(r.content)
         print(url)
-        time.sleep(2)
+        time.sleep(2)"""
+
+with open("titles.csv", "w", encoding="utf-8") as f:
+    f.write("nctid|title\n")
+    f.writelines(titles)
