@@ -16,3 +16,6 @@ node_modules/*
 # data_exploration data
 data_exploration/icf/
 data_exploration/prot/
+
+# ignore python
+__pycache__/
